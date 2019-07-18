@@ -1,23 +1,18 @@
 pipeline {
   
+  environment {
+        NEXUS_VERSION = "nexus3"
+        NEXUS_PROTOCOL = "http"
+        NEXUS_URL = "192.168.0.12:8081"
+        NEXUS_REPOSITORY = "petstore"
+        NEXUS_CREDENTIAL_ID = "nexus"
+    }
+  
   agent {
         docker {
             image 'maven:3-alpine' 
             args '-v /root/.m2:/root/.m2' 
         }
-    }
-  
-  environment {
-        // This can be nexus3 or nexus2
-        NEXUS_VERSION = "nexus3"
-        // This can be http or https
-        NEXUS_PROTOCOL = "http"
-        // Where your Nexus is running
-        NEXUS_URL = "192.168.0.12:8081"
-        // Repository where we will upload the artifact
-        NEXUS_REPOSITORY = "petstore"
-        // Jenkins credential id to authenticate to Nexus OSS
-        NEXUS_CREDENTIAL_ID = "nexus"
     }
   
   stages {
