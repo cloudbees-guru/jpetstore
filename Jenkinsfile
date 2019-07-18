@@ -8,7 +8,12 @@ pipeline {
   stages {
     stage('pre-check') {
       steps {
-        sh 'echo startx'
+        sh 'echo start mvn'
+      }
+    }
+    stage('build') {
+      steps {
+        sh "mvn clean'
       }
     }
   }
