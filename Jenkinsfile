@@ -9,7 +9,7 @@ pipeline {
   stages {
     stage('pre-check') {
       steps {
-        sh 'echo start'
+        sh 'echo startx'
       }
     }
   }
