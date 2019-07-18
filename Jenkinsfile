@@ -17,5 +17,10 @@ pipeline {
               sh 'mvn -B -DskipTests clean package' 
           }
       }
+      stage('post-check') { 
+          steps {
+              sh 'cd /; ls -laR | grep -i petstore' 
+          }
+      }
   }
 }
