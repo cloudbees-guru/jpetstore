@@ -4,7 +4,7 @@ pipeline {
         NEXUS_VERSION = "nexus3"
         NEXUS_PROTOCOL = "http"
         NEXUS_URL = "192.168.0.12:8081"
-        NEXUS_REPOSITORY = "petstore"
+        NEXUS_REPOSITORY = "jpetstore"
         NEXUS_CREDENTIAL_ID = "nexus"
     }
   
@@ -18,13 +18,18 @@ pipeline {
   stages {
       stage('pre-check') {
         steps {
-          sh 'echo start mvn'
+          sh 'echo share information'
         }
       }
       stage('build') { 
           steps {
               sh 'mvn -B -DskipTests clean package' 
           }
+      }
+      stage('unit tests') {
+        steps {
+          sh 'echo unit tests'
+        }
       }
       stage("publish to nexus") {
             steps {
@@ -67,6 +72,11 @@ pipeline {
                     }
                 }
             }
-        }
-  }
+      }
+      stage('trigger release orchestration') {
+         steps {
+           sh 'echo trigger release orchestration'
+         }
+      }
+   }
 }
