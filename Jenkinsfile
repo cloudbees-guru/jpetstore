@@ -18,9 +18,10 @@ pipeline {
       }
       stage('build') { 
           steps {
-			 	    withMaven(mavenOpts: '-Djansi.force=true') {
-				    sh 'mvn -B -DskipTests clean package'
-			    }
+		withMaven(mavenOpts: '-Djansi.force=true') {
+		  sh 'mvn -B -DskipTests clean package'
+		}
+	  }
       }
       stage('unit tests') {
         steps {
