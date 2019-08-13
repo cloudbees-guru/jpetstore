@@ -8,12 +8,7 @@ pipeline {
         NEXUS_CREDENTIAL_ID = "nexus"
     }
   
-  agent {
-        docker {
-            image 'maven:3-alpine' 
-            args '-v /root/.m2:/root/.m2' 
-        }
-    }
+  agent any
   
   stages {
       stage('pre-check') {
@@ -23,8 +18,9 @@ pipeline {
       }
       stage('build') { 
           steps {
-              sh 'mvn -B -DskipTests clean package' 
-          }
+			 	    withMaven(mavenOpts: '-Djansi.force=true') {
+				    sh 'mvn -B -DskipTests clean package'
+			    }
       }
       stage('unit tests') {
         steps {
