@@ -8,7 +8,12 @@ pipeline {
         NEXUS_CREDENTIAL_ID = "nexus"
     }
   
-  agent any
+  agent {
+    kubernetes {
+        label 'docker-build-pod'
+        yamlFile 'podTemplate/mypod.yaml'
+    }
+  }
   
   stages {
       stage('pre-check') {
@@ -18,10 +23,10 @@ pipeline {
       }
       stage('build') { 
           steps {
-		withMaven(mavenOpts: '-Djansi.force=true') {
-		  sh 'mvn -B -DskipTests clean package'
-		}
-	  }
+	    container('maven') {
+	      sh 'mvn -B -DskipTests clean package'
+	    }
+          }
       }
       stage('unit tests') {
         steps {
