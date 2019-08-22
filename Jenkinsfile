@@ -3,7 +3,7 @@ pipeline {
   environment {
         NEXUS_VERSION = "nexus3"
         NEXUS_PROTOCOL = "http"
-        NEXUS_URL = "35.206.157.163:8081"
+        NEXUS_URL = "35.210.7.163:8081"
         NEXUS_REPOSITORY = "jpetstore"
         NEXUS_CREDENTIAL_ID = "nexus"
     }
