@@ -77,7 +77,7 @@ pipeline {
       }
       stage('trigger release orchestration') {
          steps {
-           sh 'echo trigger release orchestration'
+           sh 'echo trigger release orchestration '
          }
       }
    }
