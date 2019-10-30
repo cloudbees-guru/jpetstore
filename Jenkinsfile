@@ -1,5 +1,5 @@
 pipeline {
-  
+
   environment {
         NEXUS_VERSION = "nexus3"
         NEXUS_PROTOCOL = "http"
@@ -7,21 +7,21 @@ pipeline {
         NEXUS_REPOSITORY = "jpetstore"
         NEXUS_CREDENTIAL_ID = "nexus"
     }
-  
+
   agent {
     kubernetes {
         label 'docker-build-pod'
         yamlFile 'podTemplate/mypod.yaml'
     }
   }
-  
+
   stages {
       stage('pre-check') {
         steps {
           sh 'echo share information'
         }
       }
-      stage('build') { 
+      stage('build') {
           steps {
 	    container('maven') {
 	      sh 'mvn -B -DskipTests clean package'
@@ -77,7 +77,9 @@ pipeline {
       }
       stage('trigger release orchestration') {
          steps {
-           sh 'echo trigger release orchestration'
+           def result = cloudBeesFlowCallRestApi body: '{ "parameters": { "actualParameter": [ { "actualParameterName": "artefactversion", "value": "${BUILD_ID}" }] } } ', configuration: 'flow', envVarNameForResult: '', httpMethod: 'POST', urlPath: '/pipelines?pipelineName=calculator%20pipeline&projectName=Traditional'
+           echo "result : $result"
+           echo "CALL_REST_API_CREATE_PROJECT_RESULT environment variable: $CALL_REST_API_CREATE_PROJECT_RESULT"
          }
       }
    }
