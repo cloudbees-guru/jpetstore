@@ -76,11 +76,9 @@ pipeline {
             }
       }
       stage('trigger release orchestration') {
-         steps {
            def result = cloudBeesFlowCallRestApi body: '{ "parameters": { "actualParameter": [ { "actualParameterName": "artefactversion", "value": "${BUILD_ID}" }] } } ', configuration: 'flow', envVarNameForResult: '', httpMethod: 'POST', urlPath: '/pipelines?pipelineName=calculator%20pipeline&projectName=Traditional'
            echo "result : $result"
            echo "CALL_REST_API_CREATE_PROJECT_RESULT environment variable: $CALL_REST_API_CREATE_PROJECT_RESULT"
-         }
       }
    }
 }
