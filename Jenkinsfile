@@ -30,7 +30,7 @@ pipeline {
       }
       stage('unit tests') {
         steps {
-          sh 'echo unit tests'
+          sh 'echo unit tests for ${BUILD_NUMBER}'
         }
       }
       stage("publish to nexus") {
