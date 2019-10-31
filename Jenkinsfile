@@ -17,7 +17,6 @@ pipeline {
   }
 
   stages {
-
       stage('trigger release orchestration') {
          steps{
              container('maven') {
