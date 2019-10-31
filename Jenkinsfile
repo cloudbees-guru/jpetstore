@@ -6,6 +6,7 @@ pipeline {
         NEXUS_URL = "$NEXUSURLPORT"
         NEXUS_REPOSITORY = "jpetstore"
         NEXUS_CREDENTIAL_ID = "nexus"
+        FLOWSERVER = $FLOWURLPORT
     }
 
   agent {
@@ -76,9 +77,16 @@ pipeline {
             }
       }
       stage('trigger release orchestration') {
-           steps {
-              cloudBeesFlowCallRestApi body: '{ "parameters": { "actualParameter": [ { "actualParameterName": "artefactversion", "value": "${BUILD_NUMBER}" }] } } ', configuration: 'flow', envVarNameForResult: '', httpMethod: 'POST', urlPath: '/pipelines?pipelineName=jpetstore%20after%20CI&projectName=Traditional'
-           }
+         steps{
+             withCredentials([usernamePassword(credentialsId: 'flow-admin-creds', passwordVariable: 'vPassword', usernameVariable: 'vUser')]) {
+               sh """
+               echo "hello flow - this is the lastest build ${BUILD_NUMBER}"
+               envc=`curl -D- -u $vPassword:$vUser --insecure -X POST "${FLOWSERVER}/rest/v1.0/pipeline?pipelineName=jpetstore%20after%20CI&projectName=Traditional" -H "accept: application/json" -d \'{"actualParameter":[{"actualParameterName":"artefactversion","value":"${BUILD_NUMBER}"}]}'`
+               echo "***************"
+               echo $envc
+               """
+            }
+         }
       }
    }
 }
