@@ -6,7 +6,7 @@ pipeline {
         NEXUS_URL = "$NEXUSURLPORT"
         NEXUS_REPOSITORY = "jpetstore"
         NEXUS_CREDENTIAL_ID = "nexus"
-        FLOWSERVER = $FLOWURLPORT
+        FLOWSERVER = "$FLOWURLPORT"
     }
 
   agent {
