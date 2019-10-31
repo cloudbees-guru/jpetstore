@@ -77,7 +77,7 @@ pipeline {
       }
       stage('trigger release orchestration') {
            steps {
-              cloudBeesFlowCallRestApi body: '{ "parameters": { "actualParameter": [ { "actualParameterName": "artefactversion", "value": "${currentBuild.number}" }] } } ', configuration: 'flow', envVarNameForResult: '', httpMethod: 'POST', urlPath: '/pipelines?pipelineName=jpetstore%20after%20CI&projectName=Traditional'
+              cloudBeesFlowCallRestApi body: '{ "parameters": { "actualParameter": [ { "actualParameterName": "artefactversion", "value": "${BUILD_NUMBER}" }] } } ', configuration: 'flow', envVarNameForResult: '', httpMethod: 'POST', urlPath: '/pipelines?pipelineName=jpetstore%20after%20CI&projectName=Traditional'
            }
       }
    }
