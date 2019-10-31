@@ -9,3 +9,8 @@ spec:
     command:
     - cat
     tty: true
+  - name: curl
+    image: curlimages/curl:7.65.3
+    command:
+    - cat
+    tty: true
