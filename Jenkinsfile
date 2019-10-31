@@ -9,6 +9,7 @@ pipeline {
         FLOWSERVER = "$FLOWURLPORT"
     }
 
+
   agent {
     kubernetes {
         label 'docker-build-pod'
