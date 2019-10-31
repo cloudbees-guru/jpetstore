@@ -20,7 +20,7 @@ pipeline {
 
       stage('trigger release orchestration') {
          steps{
-             container('curl') {
+             container('maven') {
                 withCredentials([usernamePassword(credentialsId: 'flow-admin-creds', passwordVariable: 'vPassword', usernameVariable: 'vUser')]) {
                   sh """
                   echo "hello flow - this is the lastest build ${BUILD_NUMBER} - talking with ${FLOWSERVER}"
