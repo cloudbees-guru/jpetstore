@@ -82,7 +82,11 @@ pipeline {
       steps{
         container('maven') {
           withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'flow-admin-creds',usernameVariable: 'vUser', passwordVariable: 'vPassword']]) {
-             sh 'curl -D- -u ${vPassword}:${vUser} --insecure -X POST "${FLOWSERVER}/rest/v1.0/pipelines?pipelineName=jpetstore%20after%20CI&projectName=Traditional" -H "accept: application/json" -d \'{"actualParameter":[{"actualParameterName":"artefactversion","value":"${BUILD_NUMBER}"}]}\''
+            sh """
+             echo "hello stefan"
+             echo `curl -D- -u ${vPassword}:${vUser} --insecure -X POST \"${FLOWSERVER}/rest/v1.0/pipelines?pipelineName=jpetstore%20after%20CI&projectName=Traditional\" -H \"accept: application/json\" -d '{\"actualParameter\":[{\"actualParameterName\":\"artefactversion\",\"value\":\"${BUILD_NUMBER}\"}]}'`
+             echo "***************"
+            """
           }
         }
      }
