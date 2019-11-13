@@ -27,7 +27,8 @@ pipeline {
     stage('build') {
         steps {
           container('maven') {
-            sh 'mvn -B -DskipTests clean package'
+            //sh 'mvn -B -DskipTests clean package'
+            sh 'mvn deploy -Dversion="6.0.3-${BUILD_NUMBER}"'
           }
         }
     }
