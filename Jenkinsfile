@@ -85,7 +85,7 @@ pipeline {
           withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'flow-admin-creds',usernameVariable: 'vUser', passwordVariable: 'vPassword']]) {
             sh """
              echo "hello stefan"
-             envc = `curl -D- -u ${vUser}:${vPassword} --insecure -X POST \"${FLOWSERVER}/rest/v1.0/pipelines?pipelineName=jpetstore%20after%20CI&projectName=Traditional\" -H \"accept: application/json\" -d '{\"actualParameter\":[{\"actualParameterName\":\"artefactversion\",\"value\":\"${BUILD_NUMBER}\"}]}'`
+             curl -D- -u ${vUser}:${vPassword} --insecure -X POST \"${FLOWSERVER}/rest/v1.0/projects/Traditional/applications/jpetstore/snapshots?snapshotName=testwtf" -H "accept: application/json" -d '{\"componentVersion\":[{\"componentVersionName\":\"webapp war\",\"value\":\"6.0.3-${BUILD_NUMBER}\"}]}'
              echo "***************"
             """
           }
