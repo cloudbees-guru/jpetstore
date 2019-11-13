@@ -28,7 +28,7 @@ pipeline {
         steps {
           container('maven') {
             //sh 'mvn -B -DskipTests clean package'
-            sh 'mvn deploy -Dversion="6.0.3-${BUILD_NUMBER}"'
+            sh 'mvn package -Dversion="6.0.3-${BUILD_NUMBER}"'
           }
         }
     }
