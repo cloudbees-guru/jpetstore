@@ -86,6 +86,7 @@ pipeline {
             sh """
              echo "hello  stefan"
              curl -D- -u ${vUser}:${vPassword} --insecure -X POST \"${FLOWSERVER}/rest/v1.0/projects/Traditional/applications/jpetstore/snapshots?snapshotName=2019-Q4-${BUILD_NUMBER}" -H "accept: application/json" -d '{\"componentVersion\":[{\"componentVersionName\":\"webapp war\",\"value\":\"6.0.3-${BUILD_NUMBER}\"}]}'
+             curl -D- -u ${vUser}:${vPassword} --insecure -X POST \"${FLOWSERVER}/rest/v1.0/releases?projectName=Traditional&releaseName=jpetstore-2019-Q4" -H "accept: application/json" -d '{\"pipelineParameter\":[{\"pipelineParameterName\":\"snapshotname\",\"value\":\"2019-Q4-${BUILD_NUMBER}\"}]}'
              echo "***************"
             """
           }
