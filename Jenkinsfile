@@ -1,21 +1,31 @@
 pipeline {
-
-  environment {
-        NEXUS_VERSION = "nexus3"
-        NEXUS_PROTOCOL = "https"
-        NEXUS_URL = "$NEXUSURLPORT"
-        NEXUS_REPOSITORY = "jpetstore"
-        NEXUS_CREDENTIAL_ID = "nexus"
-        FLOWSERVER = "$FLOWURLPORT"
-    }
-
-
   agent {
     kubernetes {
-        label 'docker-build-pod'
-        yamlFile 'podTemplate/mypod.yaml'
+      yaml """
+      apiVersion: v1
+      kind: Pod
+      metadata:
+        labels:
+          some-label: some-label-value
+      spec:
+        containers:
+        - name: maven
+          image: maven:3.6.2-jdk-8-slim
+          command:
+          - cat
+          tty: true
+      """
     }
   }
+  environment {
+        FLOWSERVER = "$FLOWURLPORT"
+        NEXUS_URL = "$NEXUSURLPORT"
+        NEXUS_VERSION = "nexus3"
+        NEXUS_PROTOCOL = "https"
+        NEXUS_REPOSITORY = "shared-demos"
+        NEXUS_CREDENTIAL_ID = "nexus"
+    }
+
 
   stages {
 
@@ -24,17 +34,17 @@ pipeline {
         sh 'echo share information'
       }
     }
-    stage('build') {
-        steps {
+    stage('Run maven') {
+      steps {
+          git(url:'https://github.com/jpbriend/jpetstore', credentialsId: 'github')
           container('maven') {
-            //sh 'mvn -B -DskipTests clean package'
-            sh 'mvn package -Dversion="6.0.3-${BUILD_NUMBER}"'
+            sh 'mvn package -Dversion="1.0.0-${BUILD_NUMBER}"'
           }
-        }
+      }
     }
     stage('unit tests') {
       steps {
-        sh 'echo unit tests for ${BUILD_NUMBER}'
+        sh 'echo unit tests for build: ${BUILD_NUMBER}'
       }
     }
     stage("publish to nexus") {
