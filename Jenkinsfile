@@ -67,7 +67,7 @@ pipeline {
                           protocol: NEXUS_PROTOCOL,
                           nexusUrl: NEXUS_URL,
                           groupId: pom.groupId,
-                          version: "6.0.3-${BUILD_NUMBER}",
+                          version: "1.0.0-${BUILD_NUMBER}",
                           repository: NEXUS_REPOSITORY,
                           credentialsId: NEXUS_CREDENTIAL_ID,
                           artifacts: [
