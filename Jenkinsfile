@@ -24,6 +24,7 @@ pipeline {
         NEXUS_PROTOCOL = "https"
         NEXUS_REPOSITORY = "shared-demos"
         NEXUS_CREDENTIAL_ID = "nexus"
+        POMVERSION = "undefined"
     }
 
 
@@ -52,6 +53,7 @@ pipeline {
               script {
                   // Read POM xml file using 'readMavenPom' step , this step 'readMavenPom' is included in: https://plugins.jenkins.io/pipeline-utility-steps
                   pom = readMavenPom file: "pom.xml";
+                  POMVERSION = pom.version;
                   // Find built artifact under target folder
                   filesByGlob = findFiles(glob: "target/*.${pom.packaging}");
                   // Print some info from the artifact found
@@ -95,7 +97,7 @@ pipeline {
           withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'flow-admin-creds',usernameVariable: 'vUser', passwordVariable: 'vPassword']]) {
             sh """
              echo "hello  stefan"
-             curl -D- -u ${vUser}:${vPassword} --insecure -X POST \"${FLOWSERVER}/rest/v1.0/projects/Shared%20demos/applications/jpetstore/snapshots?snapshotName=2020-Q1-${BUILD_NUMBER}" -H "accept: application/json" -d '{\"componentVersion\":[{\"componentVersionName\":\"webapp war\",\"value\":\"6.0.3-${BUILD_NUMBER}\"}]}'
+             curl -D- -u ${vUser}:${vPassword} --insecure -X POST \"${FLOWSERVER}/rest/v1.0/projects/Shared%20demos/applications/jpetstore/snapshots?snapshotName=2020-Q1-${BUILD_NUMBER}" -H "accept: application/json" -d '{\"componentVersion\":[{\"componentVersionName\":\"webapp war\",\"value\":\"${POMVERSION}\"}]}'
              echo "***************"
             """
           }
