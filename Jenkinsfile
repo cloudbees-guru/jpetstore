@@ -37,7 +37,7 @@ pipeline {
     }
     stage('Run maven') {
       steps {
-          git(url:'https://github.com/cloudbees-guru/jpetstore', credentialsId: 'github-jpb')
+          git(url:'https://github.com/cloudbees-guru/jpetstore', credentialsId: 'github-cloudbees-guru')
           container('maven') {
             sh 'mvn package -Dversion="1.0.0-${BUILD_NUMBER}"'
           }
