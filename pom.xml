@@ -28,34 +28,23 @@
 
   <groupId>org.mybatis</groupId>
   <artifactId>jpetstore</artifactId>
-  <version>6.0.3-SNAPSHOT</version>
+  <version>1.0.0-SNAPSHOT</version>
   <packaging>war</packaging>
 
-  <name>JPetStore Demo 6</name>
+  <name>JPetStore Demo</name>
   <url>http://www.mybatis.org</url>
 
   <scm>
-    <url>http://github.com/mybatis/jpetstore-6</url>
-    <connection>scm:git:ssh://github.com/mybatis/jpetstore-6.git</connection>
-    <developerConnection>scm:git:ssh://git@github.com/mybatis/jpetstore-6.git</developerConnection>
+    <url>http://github.com/cloudbees-guru/jpetstore</url>
+    <connection>scm:git:ssh://github.com/cloudbees-guru/jpetstore.git</connection>
+    <developerConnection>scm:git:ssh://git@github.com/cloudbees-guru/jpetstore.git</developerConnection>
     <tag>HEAD</tag>
   </scm>
   <issueManagement>
     <system>GitHub Issue Management</system>
-    <url>https://github.com/mybatis/jpetstore/issues</url>
+    <url>https://github.com/cloudbees-guru/jpetstore/issues</url>
   </issueManagement>
-  <ciManagement>
-    <system>Travis CI</system>
-    <url>https://travis-ci.org/mybatis/jpetstore-6</url>
-  </ciManagement>
-  <distributionManagement>
-    <site>
-      <id>gh-pages</id>
-      <name>Mybatis GitHub Pages</name>
-      <url>git:ssh://git@github.com/mybatis/jpetstore-6.git?gh-pages#</url>
-    </site>
-  </distributionManagement>
-
+  
   <dependencies>
     <dependency>
       <groupId>org.mybatis</groupId>
