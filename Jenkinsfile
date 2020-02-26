@@ -24,7 +24,7 @@ pipeline {
         NEXUS_PROTOCOL = "https"
         NEXUS_REPOSITORY = "shared-demos"
         NEXUS_CREDENTIAL_ID = "nexus"
-        POMVERSION = "undefinedx"
+        POMVERSION = "undefined"
     }
 
 
