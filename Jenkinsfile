@@ -38,7 +38,7 @@ pipeline {
       steps {
           git(url:'https://github.com/cloudbees-guru/jpetstore', credentialsId: 'github-jpb')
           container('maven') {
-            sh 'mvn verify -Dversion="1.0.0-${BUILD_NUMBER}"'
+            sh 'mvn package -Dversion="1.0.0-${BUILD_NUMBER}"'
           }
       }
     }
