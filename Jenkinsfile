@@ -5,26 +5,26 @@ pipeline {
   agent {
     kubernetes {
       yaml """
-      apiVersion: v1
-      kind: Pod
-      metadata:
-        labels:
-          some-label: some-label-value
-      spec:
-        containers:
-        - name: maven
-          image: maven:3.6.2-jdk-8-slim
-          command:
-          - cat
-          tty: true
-          volumeMounts:
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    some-label: some-label-value
+spec:
+  containers:
+  - name: maven
+    image: maven:3.6.2-jdk-8-slim
+    command:
+    - cat
+    tty: true
+    volumeMounts:
       - name: cache
         mountPath: /tmp/cache
-      volumes:
-      - name: cache
-        hostPath:
-          path: /tmp/cache
-      """
+  volumes:
+    - name: cache
+      hostPath:
+        path: /tmp/cache
+"""
     }
   }
   environment {
