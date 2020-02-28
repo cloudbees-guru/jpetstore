@@ -1,4 +1,7 @@
 pipeline {
+  options {
+    buildDiscarder(logRotator(numToKeepStr: '10'))
+  }
   agent {
     kubernetes {
       yaml """
@@ -14,6 +17,13 @@ pipeline {
           command:
           - cat
           tty: true
+          volumeMounts:
+      - name: cache
+        mountPath: /tmp/cache
+      volumes:
+      - name: cache
+        hostPath:
+          path: /tmp/cache
       """
     }
   }
