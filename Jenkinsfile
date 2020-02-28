@@ -46,10 +46,14 @@ pipeline {
       }
     }
     stage('Run maven') {
-      
-      withMaven(
-        mavenSettingsConfig: '8b13860a-f881-47c0-81bf-4192e70fc34d') {
-          sh 'mvn package -Dversion="1.0.0-${BUILD_NUMBER}"'
+      steps {
+        git(url:'https://github.com/cloudbees-guru/jpetstore', credentialsId: 'github-cloudbees-guru')      
+        container('maven') {
+        withMaven(
+          mavenSettingsConfig: '8b13860a-f881-47c0-81bf-4192e70fc34d') {
+            sh 'mvn package -Dversion="1.0.0-${BUILD_NUMBER}"'
+          }
+        }
       }
     }
     stage('unit tests') {
