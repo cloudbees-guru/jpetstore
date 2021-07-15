@@ -122,7 +122,7 @@ spec:
         container('maven') {
           withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'flow-admin-creds',usernameVariable: 'vUser', passwordVariable: 'vPassword']]) {
             sh """
-             echo "hello  stefan"
+             echo "hello  stefan!"
              curl -D- -u ${vUser}:${vPassword} --insecure -X POST \"${FLOWSERVER}/rest/v1.0/releases?projectName=Shared%20demos&releaseName=jpetstore-2020-Q1" -H "accept: application/json" -d '{\"pipelineParameter\":[{\"pipelineParameterName\":\"snapshotname\",\"value\":\"2020-Q1-${BUILD_NUMBER}\"}]}'
              echo "***************"
             """
